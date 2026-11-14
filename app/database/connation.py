@@ -11,8 +11,15 @@ else:
         host=settings.DB_HOST, port=settings.DB_PORT, database=settings.DB_NAME,
         query={"charset": "utf8mb4"},
     )
-    engine = create_engine(database_url, pool_pre_ping=True, pool_recycle=1800, connect_args={"connect_timeout": 5})
+connect_args = {}
+if settings.DATABASE_URL.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
 
+engine = create_engine(
+    settings.DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True,
+)
 SessionLocal = sessionmaker(engine, expire_on_commit=False)
 
 
