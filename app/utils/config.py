@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     DOCS_ENABLED: bool = True
     ACCESS_TOKEN_MINUTES: int = Field(default=16, ge=1, le=60)
     REFRESH_TOKEN_DAYS: int = Field(default=3, ge=1, le=30)
+    TELEGRAM_BOT_TOKEN: str = ""
+    TELEGRAM_CHAT_ID: str = ""
 
     @field_validator("SECRET_KEY")
     @classmethod
